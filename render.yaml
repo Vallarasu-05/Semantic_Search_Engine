@@ -1,0 +1,44 @@
+# render.yaml — Render Blueprint
+# Drop this file in your repo root and connect to Render.com
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: nexus-semantic-search
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # Free tier: 512MB RAM, 0.5 CPU
+    # plan: standard       # Upgrade for 2GB RAM (recommended for 5GB model)
+    region: oregon         # Closest to HF servers
+
+    # ── Disk: caches downloaded artifacts across deploys ──
+    disk:
+      name: artifact-cache
+      mountPath: /tmp/semantic_engine
+      sizeGB: 10            # Covers your 5GB model folder
+
+    # ── Environment variables (set secrets in Render dashboard) ──
+    envVars:
+      - key: HF_REPO_ID
+        value: YOUR_HF_USERNAME/semantic-engine   # ← CHANGE THIS
+      - key: HF_TOKEN
+        sync: false         # Set via Render Dashboard > Environment
+      - key: ARTIFACTS_DIR
+        value: /tmp/semantic_engine
+      - key: MODEL_NAME
+        value: msmarco-bert-base-dot-v5
+      - key: RERANKER_MODEL
+        value: cross-encoder/ms-marco-MiniLM-L-12-v2
+      - key: DENSE_TOP_K
+        value: "50"
+      - key: BM25_TOP_K
+        value: "30"
+      - key: RERANK_TOP_N
+        value: "20"
+      - key: TOP_K
+        value: "10"
+      - key: HYBRID_ALPHA
+        value: "0.65"
+
+    healthCheckPath: /health
+    autoDeploy: true

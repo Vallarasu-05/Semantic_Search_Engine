@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+/tmp/
+semantic_engine/
+*.bin
+*.pkl
+.DS_Store
