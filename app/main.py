@@ -132,10 +132,12 @@ def load_all():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, load_all)
+
+    # ✅ Run in background (DO NOT await)
+    loop.run_in_executor(None, load_all)
+
     yield
     log.info("🔴 Shutting down …")
-
 
 # ─────────────────────────────────────────────────────────────────
 # FastAPI app
