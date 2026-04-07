@@ -20,7 +20,7 @@ services:
     # ── Environment variables (set secrets in Render dashboard) ──
     envVars:
       - key: HF_REPO_ID
-        value: YOUR_HF_USERNAME/semantic-engine   # ← CHANGE THIS
+        value: Vallarasu-05/semantic-search-engine   # ← CHANGE THIS
       - key: HF_TOKEN
         sync: false         # Set via Render Dashboard > Environment
       - key: ARTIFACTS_DIR

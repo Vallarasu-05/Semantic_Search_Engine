@@ -39,7 +39,7 @@ log = logging.getLogger(__name__)
 # ─────────────────────────────────────────────────────────────────
 # Config  (override via environment variables on Render)
 # ─────────────────────────────────────────────────────────────────
-HF_REPO_ID      = os.getenv("HF_REPO_ID", "YOUR_HF_USERNAME/semantic-engine")
+HF_REPO_ID      = os.getenv("HF_REPO_ID", "Vallarasu-05/semantic-search-engine")
 HF_TOKEN        = os.getenv("HF_TOKEN", None)          # set in Render env vars
 ARTIFACTS_DIR   = os.getenv("ARTIFACTS_DIR", "/tmp/semantic_engine")
 MODEL_NAME      = os.getenv("MODEL_NAME", "msmarco-bert-base-dot-v5")
@@ -74,7 +74,7 @@ def download_artifact(filename: str) -> str:
     path = hf_hub_download(
         repo_id=HF_REPO_ID,
         filename=filename,
-        repo_type="dataset",
+        #repo_type="model",
         token=HF_TOKEN,
         local_dir=ARTIFACTS_DIR,
     )
