@@ -11,7 +11,7 @@ import logging
 import asyncio
 from contextlib import asynccontextmanager
 from typing import List, Optional
-
+import uvicorn
 import numpy as np
 import faiss
 import torch
@@ -290,3 +290,7 @@ async def suggest(q: str = Query(..., min_length=1)):
         if len(suggestions) >= 8:
             break
     return {"suggestions": suggestions}
+if __name__ == "__main__":
+    #import uvicorn
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
